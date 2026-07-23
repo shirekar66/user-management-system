@@ -1,85 +1,219 @@
 # User Management System
 
-A Spring Boot REST API for user authentication and user/order management.
+A production-style **Spring Boot Microservice** for User, Product, and Order Management with secure authentication, role-based authorization, Redis caching, and layered architecture.
 
-## Features
+---
 
-- User Registration
-- User Login with JWT Authentication
-- Role-Based Authorization
+## 🚀 Features
+
+- JWT Authentication & Authorization
+- User Registration & Login
+- Role-Based Access Control (RBAC)
 - CRUD Operations for Users
-- Order Management
-- Redis Caching
+- CRUD Operations for Products
+- CRUD Operations for Orders
+- RESTful API Design
+- DTO Pattern
+- Entity-DTO Mapping
 - Global Exception Handling
-- RESTful APIs
-- Spring Security Filtering
+- Custom Exception Handling
+- Bean Validation
+- Redis Caching
+- Spring Cache Abstraction
+- Transaction Management
+- Spring Security Filters
+- Code Refactoring & Clean Architecture
 
-## Tech Stack
+---
+
+## 🛠 Tech Stack
 
 - Java 17
 - Spring Boot
 - Spring Security
-- JWT
 - Spring Data JPA
 - Hibernate
-- Redis
+- JWT (JSON Web Token)
 - PostgreSQL
+- Redis
+- Spring Cache
 - Maven
+- Lombok
 
-## Prerequisites
+---
+
+## 📋 Prerequisites
+
+Before running the application, install:
 
 - Java 17+
 - Maven
-- MySQL
-- Redis
+- PostgreSQL
+- Redis Server
 
-## Running the Project
+---
+
+## ▶ Running the Application
+
+Clone the repository
+
+```bash
+git clone https://github.com/your-username/user-management-system.git
+```
+
+Navigate to the project
+
+```bash
+cd user-management-system
+```
+
+Build the project
 
 ```bash
 mvn clean install
+```
+
+Run the application
+
+```bash
 mvn spring-boot:run
 ```
 
-The application will start on:
+Application runs at:
 
 ```
 http://localhost:8080
 ```
 
-## API Endpoints
+---
+
+## 📌 REST API Endpoints
 
 ### Authentication
 
-- POST `/auth/register`
-- POST `/auth/login`
+| Method | Endpoint |
+|---------|----------|
+| POST | `/auth/register` |
+| POST | `/auth/login` |
+
+---
 
 ### Users
 
-- GET `/users`
-- GET `/users/{id}`
-- POST `/users`
-- PUT `/users/{id}`
-- DELETE `/users/{id}`
+| Method | Endpoint |
+|---------|----------|
+| GET | `/users` |
+| GET | `/users/{id}` |
+| POST | `/users` |
+| PUT | `/users/{id}` |
+| PATCH | `/users/{id}` |
+| DELETE | `/users/{id}` |
+
+---
+
+### Products
+
+| Method | Endpoint |
+|---------|----------|
+| GET | `/products` |
+| GET | `/products/{id}` |
+| POST | `/products` |
+| PUT | `/products/{id}` |
+| DELETE | `/products/{id}` |
+
+---
 
 ### Orders
 
-- POST `/orders`
-- GET `/orders`
+| Method | Endpoint |
+|---------|----------|
+| GET | `/orders` |
+| GET | `/orders/{id}` |
+| POST | `/orders` |
+| PUT | `/orders/{id}` |
+| DELETE | `/orders/{id}` |
 
-## Project Structure
+---
+
+## 📂 Project Structure
 
 ```
 src
- ├── controller
- ├── service
- ├── repositories
- ├── entity
- ├── dto
- ├── security
- ├── config
- └── exception
+├── config
+├── controller
+├── dto
+├── entity
+├── exception
+├── mapper
+├── repositories
+├── security
+├── service
+│   └── impl
+└── UserManagementApplication.java
 ```
 
-## Author
+---
+
+## 🏗 Architecture
+
+```
+Client
+   │
+   ▼
+Controller
+   │
+   ▼
+Service
+   │
+   ▼
+Repository
+   │
+   ▼
+PostgreSQL
+
+DTO ↔ Mapper ↔ Entity
+
+↓
+
+Redis Cache
+
+↓
+
+Global Exception Handler
+```
+
+---
+
+## ✅ Validation & Error Handling
+
+- Bean Validation using `@Valid`
+- Custom Exceptions
+- Global Exception Handler using `@RestControllerAdvice`
+- Standardized API Error Responses
+
+---
+
+## ⚡ Caching
+
+Redis is used to improve application performance by caching frequently accessed data.
+
+Implemented using:
+
+- `@Cacheable`
+- `@CachePut`
+- `@CacheEvict`
+
+---
+
+## 🔒 Security
+
+- Spring Security
+- JWT Authentication
+- Role-Based Authorization
+- Password Encryption
+
+---
+
+## 👨‍💻 Author
 
 **Sachin Hirekar**
