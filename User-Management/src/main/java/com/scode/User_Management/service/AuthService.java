@@ -6,6 +6,8 @@ import com.scode.User_Management.dto.LoginResponseDto;
 import com.scode.User_Management.dto.RegisterUserResponseDto;
 import com.scode.User_Management.entity.Role;
 import com.scode.User_Management.entity.User;
+import com.scode.User_Management.kafka.UserCreatedEvent;
+import com.scode.User_Management.kafka.UserKafkaProducer;
 import com.scode.User_Management.repositories.UserRepo;
 import com.scode.User_Management.security.JwtService;
 import lombok.AllArgsConstructor;
@@ -26,21 +28,24 @@ public class AuthService {
     private final UserRepo userRepo;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final UserKafkaProducer userKafkaProducer;
 
-    public RegisterUserResponseDto registerUser(CreateUserDto createUserDto){
+    public RegisterUserResponseDto registerUser(CreateUserDto createUserDto) {
         User user = new User();
         user.setName(createUserDto.getName());
         user.setEmail(createUserDto.getEmail());
         user.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
         user.setRole(Role.USER);
+
         User savedUser = userRepo.save(user);
 
+        UserCreatedEvent event = new UserCreatedEvent(savedUser.getId(), savedUser.getName(), savedUser.getEmail());
+        userKafkaProducer.publishUserCreatedEvent(event);
         return new RegisterUserResponseDto(savedUser.getId(), savedUser.getName());
     }
 
     public LoginResponseDto login(LoginDto loginDto) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
         String jwtToken = jwtService.generateJwtToken((UserDetails) Objects.requireNonNull(authentication.getPrincipal()));
         return new LoginResponseDto(jwtToken);
     }

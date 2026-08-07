@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepo productRepo;
@@ -23,17 +24,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto addProduct(ProductDto productDto) {
         Product product = ProductMapper.toEntity(productDto);
-        Product saved = productRepo.save(product);
-        return ProductMapper.toDto(saved);
+        return ProductMapper.toDto(productRepo.save(product));
     }
 
     @Override
     public ProductDto getProductById(Long id) {
-        Product product = getProductEntity(id);
-        return ProductMapper.toDto(product);
+        return ProductMapper.toDto(getProductEntity(id));
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ProductDto> getAllProducts() {
         return productRepo.findAll()
                 .stream()
@@ -42,7 +42,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional
     public ProductDto updateProduct(Long id, ProductDto productDto) {
         Product existingProduct = getProductEntity(id);
         existingProduct.setName(productDto.getName());
@@ -52,10 +51,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional
     public void deleteProduct(Long id) {
-        Product product = getProductEntity(id);
-        productRepo.delete(product);
+        productRepo.deleteById(id);
     }
 
     private Product getProductEntity(Long id){

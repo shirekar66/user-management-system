@@ -1,18 +1,15 @@
-package com.scode.User_Management.dto;
+package com.scode.User_Management.kafka;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class UserDto implements Serializable {
+@AllArgsConstructor
+public class UserCreatedEvent {
 
     private Long id;
     private String name;
     private String email;
-
 }

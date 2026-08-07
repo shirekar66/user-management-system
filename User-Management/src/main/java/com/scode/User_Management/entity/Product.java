@@ -1,33 +1,36 @@
-/*
 package com.scode.User_Management.entity;
 
+import com.scode.User_Management.dto.ProductDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import lombok.*;
 
 import java.math.BigDecimal;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "products")
-public class Product {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Product extends ProductDto {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false,unique = true,length = 200)
+    @NotBlank
+    @Column(nullable = false, unique = true, length = 200)
     private String name;
 
-    @Column(nullable = false,precision = 12,scale = 2)
+    @NotNull
+    @Positive
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal price;
 
     @Column(nullable = false)
-    private boolean active=true;
-
-
-
+    private Boolean active = true;
 }
-*/

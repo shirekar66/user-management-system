@@ -1,18 +1,21 @@
 package com.scode.User_Management.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
+import lombok.NonNull;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto implements Serializable {
-
-    private Long id;
+public class PatchUserDto {
+    @NotBlank
+    @NonNull
+    @Size(max = 100)
     private String name;
+    @NotBlank
+    @NonNull
     private String email;
-
 }
