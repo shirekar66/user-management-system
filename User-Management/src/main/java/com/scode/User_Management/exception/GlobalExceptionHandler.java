@@ -32,6 +32,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto> handleException(Exception ex) {
 
+        logger.error("Unexpected exception", ex);
+
         ErrorResponseDto error = new ErrorResponseDto(
                 "INTERNAL_SERVER_ERROR",
                 "Something went wrong."

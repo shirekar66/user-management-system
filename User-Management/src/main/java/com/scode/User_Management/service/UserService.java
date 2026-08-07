@@ -1,6 +1,7 @@
 package com.scode.User_Management.service;
 
 import com.scode.User_Management.dto.CreateUserDto;
+import com.scode.User_Management.dto.PatchUserDto;
 import com.scode.User_Management.dto.UpdateUserDto;
 import com.scode.User_Management.dto.UserDto;
 
@@ -12,11 +13,12 @@ public interface UserService {
 
     List<UserDto> getAllUsers();
 
-    UserDto getUsersById(Long id);
+    UserDto getUserById(Long id);
 
     UserDto updateUser(Long id, UpdateUserDto updateUserDto);
 
+    UserDto patchUser(Long id, PatchUserDto patchUserDto);
+
     void deleteUser(Long id);
 
-    UserDto patchUser(Long id, CreateUserDto patchUserDto);
 }

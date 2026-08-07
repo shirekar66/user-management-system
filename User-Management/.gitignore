@@ -32,9 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-# IntelliJ
-.idea/
-
 # Eclipse
 .settings/
 *.userlibraries

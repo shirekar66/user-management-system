@@ -7,5 +7,5 @@ import lombok.Getter;
 @Getter
 public class ErrorResponseDto {
     private String code;
-    private  String  message;
+    private String message;
 }

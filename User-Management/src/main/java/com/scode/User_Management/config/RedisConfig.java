@@ -1,6 +1,7 @@
-/*
 package com.scode.User_Management.config;
 
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,10 +14,15 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
-@EnableCaching
 public class RedisConfig {
+
+    @Bean
+    public CommandLineRunner runner(CacheManager cacheManager) {
+        return args -> System.out.println("CacheManager = " + cacheManager.getClass().getName());
+    }
 
     @Bean
     public RedisCacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory){
@@ -33,11 +39,10 @@ public class RedisConfig {
         cacheConfigurations.put("users",defaultConfig.entryTtl(Duration.ofMinutes(10)));
         cacheConfigurations.put("orders",defaultConfig.entryTtl(Duration.ofMinutes(2)));
 
+
         return RedisCacheManager.builder(redisConnectionFactory)
                 .cacheDefaults(defaultConfig)
                 .withInitialCacheConfigurations(cacheConfigurations)
                 .build();
-
     }
 }
-*/

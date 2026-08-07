@@ -2,7 +2,6 @@ package com.scode.User_Management.service;
 
 import com.scode.User_Management.dto.CreateOrderDto;
 import com.scode.User_Management.dto.OrderDto;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -12,6 +11,4 @@ public interface OrderService {
     List<OrderDto> getOrderByUser(Long userId);
     OrderDto updateOrderByUser(Long orderId,Long userId,CreateOrderDto updateOrderDto);
     void deleteOrder(Long orderId, Long userId);
-
-//    List<OrderDto> getAllOrder();
 }

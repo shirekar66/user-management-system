@@ -6,7 +6,6 @@ import com.scode.User_Management.dto.LoginResponseDto;
 import com.scode.User_Management.dto.RegisterUserResponseDto;
 import com.scode.User_Management.service.AuthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,11 +22,11 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<RegisterUserResponseDto> signUp(@RequestBody CreateUserDto createUserDto){
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(authService.registerUser(createUserDto));
+        return ResponseEntity.created(null).body(authService.registerUser(createUserDto));
     }
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> login(@RequestBody LoginDto loginDto){
-        return ResponseEntity.status(HttpStatus.OK).body(authService.login(loginDto));
+        return ResponseEntity.ok().body(authService.login(loginDto));
     }
 }
